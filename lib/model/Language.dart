@@ -1,18 +1,10 @@
-class Language {
-  final String name;
+class Languages {
+  late String name;
 
-  const Language({required this.name});
+  Languages({required this.name});
 
-  factory Language.fromJson(Map<String, dynamic> json) {
-    return Language(
-      name: json['name'] as String,
-    );
-  }
-
-  factory Language.fromString(String string) {
-    return Language(
-      name: string,
-    );
+  Languages.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
   }
 
   Map<String, dynamic> toJson() {

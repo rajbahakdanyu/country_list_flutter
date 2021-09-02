@@ -16,7 +16,7 @@ class CountryCard extends StatelessWidget {
   final String name;
   final String capital;
   final String flag;
-  final List<Language> language;
+  final List<Languages> language;
 
   @override
   Widget build(BuildContext context) {

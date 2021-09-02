@@ -1,69 +1,34 @@
-import 'package:sqflite_test/model/Language.dart';
+import 'Language.dart';
 
 class Country {
-  final String name;
-  final String capital;
-  final String flag;
-  final List<Language> language;
+  late String capital;
+  late String flag;
+  late List<Languages> languages;
+  late String name;
 
   Country({
-    required this.name,
     required this.capital,
     required this.flag,
-    required this.language,
+    required this.languages,
+    required this.name,
   });
 
-  factory Country.fromJson(Map<String, dynamic> json) {
-    var languages = new List<Language>.empty(growable: true);
-    if (json['languages'] != null) {
-      if (json['languages'].runtimeType == String) {
-        var list = json['languages'].toString().split(',');
-        list.forEach((lang) {
-          var name = lang.split(':')[1];
-          languages.add(new Language.fromString(name));
-        });
-      } else {
-        json['languages'].forEach((v) {
-          languages.add(new Language.fromJson(v));
-        });
-      }
-    }
-
-    return Country(
-      name: json['name'] as String,
-      capital: json['capital'] as String,
-      flag: json['flagPNG'] as String,
-      language: languages,
-    );
-  }
-
-  factory Country.fromString(Map<String, dynamic> json) {
-    var languages = new List<Language>.empty(growable: true);
-    if (json['languages'] != null) {
-      var list = json['languages'].toString().split(',');
-      print(list);
-      list.forEach((lang) {
-        var name = lang.split(':')[1];
-        languages.add(new Language.fromString(name));
-      });
-    }
-
-    return Country(
-      name: json['name'] as String,
-      capital: json['capital'] as String,
-      flag: json['flagPNG'] as String,
-      language: languages,
-    );
+  Country.fromJson(Map<String, dynamic> json) {
+    capital = json['capital'];
+    flag = json['flagPNG'];
+    languages = [];
+    json['languages'].forEach((v) {
+      languages.add(Languages.fromJson(v));
+    });
+    name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    var lang = this.language.map((v) => v.toJson()).toString();
     data['capital'] = this.capital;
     data['flagPNG'] = this.flag;
+    data['languages'] = this.languages.map((v) => v.toJson()).toList();
     data['name'] = this.name;
-    data['languages'] = lang;
-
     return data;
   }
 }

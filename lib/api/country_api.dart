@@ -12,12 +12,12 @@ class CountryApi {
       'https://raw.githubusercontent.com/DevTides/countries/master/countriesV2.json',
     );
 
-    var response = await http.get(url);
+    http.Response response = await http.get(url);
 
     var result = jsonDecode(response.body).cast<Map<String, dynamic>>();
 
     result.forEach((data) {
-      var country = Country.fromJson(data);
+      Country country = Country.fromJson(data);
       countryList.add(country);
     });
 

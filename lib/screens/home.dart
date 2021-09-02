@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
           name: countries[index].name,
           capital: countries[index].capital,
           flag: countries[index].flag,
-          language: countries[index].language,
+          language: countries[index].languages,
         );
       },
     );

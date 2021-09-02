@@ -48,15 +48,13 @@ class CountryDB {
 
     final result = await db.query('countries');
 
-    var country_list = [];
+    List<Country> country_list = [];
 
     result.forEach((json) {
-      country_list.add(json);
+      country_list.add(Country.fromJson(json));
     });
 
-    print(country_list);
-
-    return result.map((json) => Country.fromString(json)).toList();
+    return country_list;
   }
 
   Future close() async {
