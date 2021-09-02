@@ -12,13 +12,16 @@ class CountryProvider extends ChangeNotifier {
     if (countryData.isEmpty) {
       List<Country> _countryData = await CountryApi.getCountries();
 
-      for (var country in _countryData) {
-        CountryDB.instance.create(country);
-      }
-
-      countryData = await CountryDB.instance.readAll();
+      countryData = _countryData;
+      storeData(countryData);
     }
 
     notifyListeners();
+  }
+
+  void storeData(List<Country> countryData) async {
+    for (var country in countryData) {
+      CountryDB.instance.create(country);
+    }
   }
 }

@@ -17,9 +17,21 @@ class Country {
     capital = json['capital'];
     flag = json['flagPNG'];
     languages = [];
-    json['languages'].forEach((v) {
-      languages.add(Languages.fromJson(v));
-    });
+    if (json['languages'].runtimeType == String) {
+      String lang = json['languages'];
+      lang = lang.replaceAll("(", "");
+      lang = lang.replaceAll(")", "");
+      lang = lang.replaceAll("{", "");
+      lang = lang.replaceAll("}", "");
+      List<String> tempList = lang.split(",");
+      tempList.forEach((element) {
+        languages.add(Languages(name: element.trim().replaceAll("name: ", "")));
+      });
+    } else {
+      json['languages'].forEach((v) {
+        languages.add(Languages.fromJson(v));
+      });
+    }
     name = json['name'];
   }
 
